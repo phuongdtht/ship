@@ -1,4 +1,21 @@
 @extends('Admin.Layout.Layout')
+@section('css')
+    <style>
+        .example-modal .modal {
+            position: relative;
+            top: auto;
+            bottom: auto;
+            right: auto;
+            left: auto;
+            display: block;
+            z-index: 1;
+        }
+
+        .example-modal .modal {
+            background: transparent !important;
+        }
+    </style>
+    @stop
 @section('content')
 
 
@@ -8,36 +25,7 @@
                         <small>List</small>
                     </h1>
                 </div>
-                <!-- /.col-lg-12 -->
-                @if (session('thongbao'))
-                    <div class="alert alert-success">
-                        {{session('thongbao')}}
-                    </div>
-                @endif
-                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                    <thead>
-                    <tr align="center">
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Delete</th>
-                        <th>Edit</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach( $user as $item )
-                        <tr class="odd gradeX" align="center">
-                            <td> {{$item->id}}</td>
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->email}}</td>
-                            <td>{{$item->password}}</td>
-                            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="{{route('getdeleteuser',$item->id)}}"> Delete</a></td>
-                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{{route('getupdateuser',$item->id)}}">Edit</a></td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+
 
             <!-- /.row -->
                 <div class="content-wrapper">
@@ -67,42 +55,97 @@
                                     </div>
                                     <!-- /.box-header -->
                                     <div class="box-body">
+                                        @if (session('thongbao'))
+                                            <div class="alert alert-success">
+                                                {{session('thongbao')}}
+                                            </div>
+                                        @endif
                                         <table id="example1" class="table table-bordered table-striped">
                                             <thead>
                                             <tr>
                                                 <th>Id</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>Name</th>
+                                                <th>Role</th>
+                                                <th>email</th>
+                                                <th>password</th>
+                                                <th>gender</th>
+                                                <th>phone</th>
+                                                <th>delete</th>
+                                                <th>update</th>
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            @foreach( $user as $item )
                                             <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
+                                                <td> {{$item->id}}</td>
+                                                <td>{{$item->name}}</td>
+                                                <td>{{$item->role}}</td>
+                                                <td>{{$item->email}}</td>
+                                                <td>{{$item->password}} </td>
+                                                <td> {{$item->gender}} </td>
+                                                <td>{{$item->phone}} </td>
+                                                <td class="center"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-warning">
+                                                        <i class="fa fa-trash-o  fa-fw"></i>Delele
+                                                    </button>
                                                 </td>
-                                                <td>Win 95+</td>
-                                                <td> 4</td>
-                                                <td>X</td>
-                                            </tr>
 
-                                            <tr>
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
-                                                <td>-</td>
-                                                <td>U</td>
+                                                <td class="center"><a class="btn btn-success" href="{{route('getupdateuser',$item->id)}}">
+                                                        <i class="fa fa-pencil fa-fw"></i> Edit</a>
+                                                </td>
+
                                             </tr>
+                                            <div class="modal modal-warning fade" id="modal-warning">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title"> Bạn chắc chắn muốn xoá</h4>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">NO</button>
+                                                            <button type="button" class="btn btn-outline" data-dismiss="modal" data-toggle="modal" data-target="#modal-danger">
+                                                                YES
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
+                                            <div class="modal modal-danger fade" id="modal-danger">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span></button>
+                                                            <h4 class="modal-title">Đây là thông tin quan trọng Bạn chắc chắn muốn xoá</h4>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">NO</button>
+                                                            <a class="btn btn-outline" href="{{route('getdeleteuser',$item->id)}}">
+                                                                <i class="fa fa-trash-o  fa-fw"></i> YES  </a>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
+
+
+                                            @endforeach
                                             </tbody>
                                             <tfoot>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>Id</th>
+                                                <th>Name</th>
+                                                <th>Role</th>
+                                                <th>email</th>
+                                                <th>password</th>
+                                                <th>gender</th>
+                                                <th>phone</th>
+                                                <th>delete</th>
+                                                <th>update</th>
                                             </tr>
                                             </tfoot>
                                         </table>
@@ -110,6 +153,7 @@
                                     <!-- /.box-body -->
                                 </div>
                                 <!-- /.box -->
+
                             </div>
                             <!-- /.col -->
                         </div>
@@ -119,17 +163,5 @@
                 </div>
 
     @stop
-<script>
-    $(function () {
-        $('#example1').DataTable()
-        $('#example2').DataTable({
-            'paging'      : true,
-            'lengthChange': false,
-            'searching'   : false,
-            'ordering'    : true,
-            'info'        : true,
-            'autoWidth'   : false
-        })
-    })
-</script>
+
 
