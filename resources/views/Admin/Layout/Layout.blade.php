@@ -300,7 +300,7 @@
                                 <div class="pull-right">
                                     <a href="{{route('logout')}}" class="btn btn-default btn-flat">Sign out</a>
                                 </div>
-                                
+
                             </li>
                         </ul>
                     </li>
@@ -380,7 +380,19 @@
                         <li><a href="{{route('getadduser')}}"><i class="fa fa-circle-o"></i> Add User</a></li>
                     </ul>
                 </li>
-
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-cube fa-fw"></i>
+                        <span>Posts</span>
+                        <span class="pull-right-container">
+              <span class="label label-primary pull-right">4</span>
+            </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{route('listpost')}}"><i class="fa fa-circle-o"></i> List Post</a></li>
+                        <li><a href="{{route('getaddpost')}}"><i class="fa fa-circle-o"></i> Add Post</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a href="{{asset('public/Admin_asset')}}/pages/widgets.html">
                         <i class="fa fa-th"></i> <span>Widgets</span>
